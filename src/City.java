@@ -63,6 +63,9 @@ public class City extends CityLayout{
     public void setTax(double tax) {
     	this.tax = tax;
     }
+    public void setName(String name) {
+    	this.name = name;
+    }
     //Sets a value for tile in layout array
     public void setCityTile(int row, int col, int selection) {
     	this.cityLayout[row][col] = selection;
@@ -82,11 +85,14 @@ public class City extends CityLayout{
     }
     
     //Executes end of day tasks
-    public void nextDay() {
+    public boolean nextDay() {
     	this.daysElapsed += 1;
     	checkPop();
     	eatFood();
-    	
+    	if (this.money < -500 ) {
+    		return false;
+    	}
+    	return true;
     }
     public void checkPop() {
     	if ((this.food / 3) > this.population) {

@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -15,12 +16,16 @@ public class Build {
 		window.initStyle(StageStyle.UTILITY);
 		window.setResizable(false);
 		
-		Label label1 = new Label("Enter plot you want to build on (row,col)(number)");
-		TextField rowVal = new TextField();
-		rowVal.setPromptText("Row");
+		Label label1 = new Label("Enter plot you want to build on: ");
 		
-		TextField colVal = new TextField();
-		colVal.setPromptText("Col");
+		Label rowLab = new Label("Row: ");
+		
+		Label colLab = new Label("Col:  ");
+		ChoiceBox<String> rowVal = new ChoiceBox<>();
+		rowVal.getItems().setAll("1", "2","3","4","5","6");
+		
+		ChoiceBox<String> colVal = new ChoiceBox<>();
+		colVal.getItems().setAll("1", "2","3","4","5","6","7","8","9");
 		
 		Label label2 = new Label("What district would you like to build?");
 		
@@ -40,17 +45,24 @@ public class Build {
 			selection = 9;
 			window.close();
 		});
+		HBox rowInput = new HBox();
+		rowInput.getChildren().addAll(rowLab, rowVal);
+		
+		
+		HBox colInput = new HBox();
+		colInput.getChildren().addAll(colLab, colVal);
+		
 		HBox buttonLayout = new HBox();
 		buttonLayout.getChildren().addAll(residential,commercial,industrial);
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(label1, rowVal, colVal, label2,buttonLayout);
+		layout.getChildren().addAll(label1, rowInput, colInput, label2,buttonLayout);
 		
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();
 		
-		int[] output = {Integer.valueOf(rowVal.getText()), Integer.valueOf(colVal.getText()), selection};
+		int[] output = {(Integer.valueOf(rowVal.getValue()))-1, (Integer.valueOf(colVal.getValue()))-1, selection};
 		return output;
 	}
 }

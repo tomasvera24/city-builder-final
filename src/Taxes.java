@@ -32,7 +32,7 @@ public class Taxes {
 			taxRate = Double.valueOf(taxVal.getText());
 			window.close();
 		});
-		submit.setOnAction(e -> {
+		cancel.setOnAction(e -> {
 			window.close();
 		});
 		HBox buttonLayout = new HBox();

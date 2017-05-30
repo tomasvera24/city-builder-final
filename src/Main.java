@@ -20,7 +20,7 @@ public class Main extends Application{
 	public void start(Stage window) throws Exception {
 		window.setTitle("City Builder");
 		
-		City city = new City("TesterVille");
+		City city = new City("City");
 		
 		//define intro scene
 		Intro intro = new Intro(window);

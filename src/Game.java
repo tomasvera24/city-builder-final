@@ -11,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +32,7 @@ public class Game {
 	Stage window;
 	
 	City city;
+	BorderPane layout;
 	
 	public Game(Stage window, City city) {
 		this.window = window;
@@ -53,8 +59,8 @@ public class Game {
 			
 		});
 		button2.setOnAction(e -> {
-			//int foodResult = Food.display();
-			//city.buyFood(foodResult);
+			int foodResult = Food.display();
+			city.buyFood(foodResult);
 			button1.setDisable(true);
 			button2.setDisable(true);
 			button3.setDisable(true);
@@ -70,6 +76,9 @@ public class Game {
 		button4.setOnAction(e -> {
 			window.setScene(this.getScene());
 			city.nextDay();
+			if (city.nextDay() == false) {
+				window.setScene(GameOver.getScene(this.city));
+			}
 			button2.setDisable(false);
 			button3.setDisable(false);
 		});
@@ -123,15 +132,23 @@ public class Game {
 			}
 		}
 		
+		//backround image
+		
 		
 		
 		cityLayout.setAlignment(Pos.CENTER);
 		
 		
-		BorderPane layout = new BorderPane();
+		layout = new BorderPane();
 		layout.setTop(stats);
 		layout.setLeft(options);
 		layout.setCenter(cityLayout);
+		
+		BackgroundImage backGround= new BackgroundImage(new Image("/Images/background.jpg",1500,750,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
+		
+		layout.setBackground(new Background(backGround));
 		
 		game = new Scene(layout, 1500, 750);
 		game.getStylesheets().add("Game.css");

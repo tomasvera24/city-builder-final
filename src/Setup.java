@@ -4,7 +4,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
 public class Setup {
@@ -22,17 +31,25 @@ public class Setup {
 		VBox setupLayout = new VBox();
 		
 		Label cityNameLabel = new Label("Enter name for city:");
+		cityNameLabel.setFont(Font.font("Ariel", FontWeight.BOLD, 40));
+		cityNameLabel.setTextFill(Color.WHITE);
 		TextField cityNameField = new TextField ();
+		cityNameField.setId("field");
+		Label empty = new Label("");
 		Button submit = new Button("Submit");
-		setupLayout.getChildren().addAll(cityNameLabel, cityNameField, submit);
+		setupLayout.getChildren().addAll(cityNameLabel, cityNameField, empty, submit);
 		submit.setOnAction(e -> {
 			window.setScene(game);
 			city = new City(cityNameField.getText());
 		});
+		BackgroundImage backGround= new BackgroundImage(new Image("/Images/Landscape.jpg",1500,750,false,true),
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);
 		
 		setupLayout.setAlignment(Pos.CENTER);
+		setupLayout.setBackground(new Background(backGround));
 		setup = new Scene(setupLayout, 1500, 750);
-		
+		setup.getStylesheets().add("Setup.css");
 		return setup;
 		
 	}
