@@ -1,0 +1,21 @@
+.label {
+   -fx-font-size: 35px;
+   -fx-font-family: "Arial";
+   -fx-text-fill: #ffffff;
+}
+.main {
+   -fx-font-size: 50px;
+   -fx-font-family: "Arial";
+   -fx-text-fill: #f26d21;
+}
+.score {
+   -fx-font-size: 45px;
+   -fx-font-family: "Arial";
+   -fx-text-fill: #c02f1d;
+}
+
+.text {
+    -fx-background-color: rgba(169,169,169,0.7);
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}

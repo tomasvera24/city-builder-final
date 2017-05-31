@@ -1,8 +1,4 @@
-import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -16,14 +12,10 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Game {
@@ -75,7 +67,6 @@ public class Game {
 		});
 		button4.setOnAction(e -> {
 			window.setScene(this.getScene());
-			city.nextDay();
 			if (city.nextDay() == false) {
 				window.setScene(GameOver.getScene(this.city));
 			}
@@ -91,7 +82,6 @@ public class Game {
 		//Stats
 		VBox stats = new VBox();
 		Label label1 = new Label(city.getName() + " Status Info:");
-		Label label2 = new Label(" Day: " + city.getDaysElapsed());
 		Label label3 = new Label("Population: " + city.getPopulation() + " Food: " + city.getFood() + " Money: $" + city.getMoney() );
 		Label label4 = new Label("Tax Rate: " + city.getTax() + "% Rating: " + city.getRating());
 		

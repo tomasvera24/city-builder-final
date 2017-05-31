@@ -1,4 +1,3 @@
-import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -32,6 +31,7 @@ public class Build {
 		Button residential = new Button("Residential");
 		Button commercial = new Button("Commercial");
 		Button industrial = new Button("Industrial");
+		Button demolish = new Button("Demolish");
 		
 		residential.setOnAction(e -> {
 			selection = 7;
@@ -45,6 +45,10 @@ public class Build {
 			selection = 9;
 			window.close();
 		});
+		demolish.setOnAction(e -> {
+			selection = 0;
+			window.close();
+		});
 		HBox rowInput = new HBox();
 		rowInput.getChildren().addAll(rowLab, rowVal);
 		
@@ -53,7 +57,7 @@ public class Build {
 		colInput.getChildren().addAll(colLab, colVal);
 		
 		HBox buttonLayout = new HBox();
-		buttonLayout.getChildren().addAll(residential,commercial,industrial);
+		buttonLayout.getChildren().addAll(residential,commercial,industrial,demolish);
 		
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label1, rowInput, colInput, label2,buttonLayout);

@@ -1,5 +1,6 @@
-public class City extends CityLayout{
-    private String name;
+public class City extends CityLayout implements Events{
+    
+	private String name;
     private int population;
     private int residential;
     private int commercial;
@@ -11,6 +12,10 @@ public class City extends CityLayout{
     private int food;
     private int[][] cityLayout;
     private int[] houseNum = {3, 0, 1, 4, 7, 5};
+    private int murderDay;
+    private int embezzlementDay;
+    private int fireDay;
+    private int earthquakeDay;
     
     	
     City(String name) {
@@ -24,9 +29,16 @@ public class City extends CityLayout{
         this.daysElapsed = 1;
         this.food = 0;
         this.cityLayout = super.getMap(0);
+        this.murderDay = ((int)Math.random() * 1000)+20;
+        this.fireDay = ((int)Math.random() * 1000)+20;
+        this.earthquakeDay = ((int)Math.random() * 1000)+20;
+        this.embezzlementDay = ((int)Math.random() * 1000)+20;
     }
     
     //Getter Methods
+    public int getScore() {
+    	return (this.population * 10) + (this.residential * 5) + (this.industrial * 10) + (this.commercial * 5) + (this.daysElapsed * 5) + (this.rating * 5);
+    }
     public int[][] getCityLayout() {
     	return this.cityLayout;
     }
@@ -60,6 +72,9 @@ public class City extends CityLayout{
     }
     
     //Setter methods
+    public void setRating(int rating) {
+        this.rating = rating;
+   }
     public void setTax(double tax) {
     	this.tax = tax;
     }
@@ -68,8 +83,18 @@ public class City extends CityLayout{
     }
     //Sets a value for tile in layout array
     public void setCityTile(int row, int col, int selection) {
-    	this.cityLayout[row][col] = selection;
     	
+    	if (selection == 0) {
+    		if (this.cityLayout[row][col] == 7) {
+    			this.residential -= 1;
+    		}
+    		else if (this.cityLayout[row][col] == 8) {
+    			this.commercial -= 1;
+    		}
+    		else if (this.cityLayout[row][col] == 9) {
+    			this.industrial -= 1;
+    		}
+    	}
     	if (selection == 7) {
     		this.residential += 1;
     		this.money -= 100;
@@ -80,8 +105,10 @@ public class City extends CityLayout{
     	}
     	if (selection == 9) {
     		this.industrial += 1;
-    		this.money -= 300;
+    		this.money -= 500;
+    		this.rating -= 1;
     	}
+    	this.cityLayout[row][col] = selection;
     }
     
     //Executes end of day tasks
@@ -89,15 +116,17 @@ public class City extends CityLayout{
     	this.daysElapsed += 1;
     	checkPop();
     	eatFood();
-    	if (this.money < -500 ) {
+    	checkFood();
+    	checkTax();
+    	checkRating();
+    	checkBuildings();
+    	checkPopDay();
+    	if (this.money < -500 || this.rating < 0) {
     		return false;
     	}
     	return true;
     }
     public void checkPop() {
-    	if ((this.food / 3) > this.population) {
-    		this.population = (this.residential * 3);
-    	}
     	if (this.population < 0) {
     		this.population = 0;
     	}
@@ -113,48 +142,54 @@ public class City extends CityLayout{
         }
     }
     public void eatFood() {
-        this.food -= this.population/3;
-        if (this.food < 0) {
-            this.population += this.food;
-            this.food = 0;
-        }
+    	if (this.population > 0) {
+    		this.food -= 1;
+    	}
     }
     
     //Checkers
-    public int checkMoney() {
-        if (this.money < -500) {
-            return 0;
-        }
-        else {
-            return 1;
-        }
-         
+    public void checkBuildings() {
+    	this.money -= this.residential * 3;
+    	this.money += this.commercial * 5;
+    	this.money += this.industrial * 15;
     }
-    public void checkTaxes() {
-        if (this.tax > 10 && this.tax <= 20) {
-            this.rating -= 10;
+    public void checkFood() {
+    	if (this.food < 0 && this.population > 0) {
+        	this.rating -= 1;
+        	this.food = 0;
         }
-        else if (this.tax > 20 && this.tax <= 50) {
-            this.rating -= 20;
+    	else if(this.food < 0) {
+    		this.food = 0;
+    	}
+    }
+    public void checkTax() {
+    	this.money += (this.population*10) * (this.tax/100);
+        if (this.tax > 10) {
+        	this.rating -= 1;
         }
-        else if (this.tax > 50) {
-            this.rating -= 30;
+        if (this.tax <= 1) {
+        	this.rating += 1;
         }
     }
     public void checkRating() {
-        if (this.rating <= 50 && this.rating > 20) {
-            this.population -= (int)(Math.random() * 20);
-        }
-        else if (this.rating <= 20 && this.rating > 10) {
-            this.population -= (int)(Math.random() * 30);
-        }
-        else if (this.rating <= 10 && this.rating > 20) {
-            this.population -= (int)(Math.random() * 50);
-        }
+    	if (this.rating > 20) {
+    		this.rating = 20;
+    	}
     }
+    public void checkPopDay() {
+    	if (this.population == 0 && this.daysElapsed > 10) {
+    		this.rating -= 2;
+    	}
+    }
+    
     //Action
     public void buyFood(int foodAmount) {
-        this.food += foodAmount;
+    	int foodCount = foodAmount;
+    	if (this.population < (this.residential * 5)) {
+    		foodCount = foodAmount - ((this.residential * 5) - this.population);
+    		this.population += ((this.residential * 5) - this.population);
+    	}
+        this.food += foodCount;
         this.money -= (5 * foodAmount);
     }
     public void raiseTax(double tax) {
@@ -162,14 +197,28 @@ public class City extends CityLayout{
     }
     
     //Events
-    public void fire() {
-        this.population -= (int) (Math.random() * 1000);
-    }
     public void murder() {
-        population -= 3;
-        rating -= 1.0;
+    	if (this.daysElapsed == this.murderDay) {
+    		population -= 5;
+            rating -= 1;
+    	}
     }
-    public void setRating(int rating) {
-         this.rating = rating;
-    }
+    public void fire() {
+    	if (this.daysElapsed == this.fireDay) {
+    		this.population -= 20;
+    		this.rating -= 3;
+    	}
+    };
+	public void earthquake() {
+		if (this.earthquakeDay == this.daysElapsed) {
+			this.population -= 30;
+			this.rating -= 2;
+		}
+	};
+	public void embezzlement() {
+		if (this.embezzlementDay == this.daysElapsed) {
+			this.money -= 500;
+		}
+	};
+    
 }
