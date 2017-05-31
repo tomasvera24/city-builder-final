@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 
 public class Intro {
 	
+	//variables
 	Scene intro;
 	Stage window;
 	
@@ -37,6 +38,7 @@ public class Intro {
 		Label title = new Label("Tomas' City Builder");
 		title.setFont(Font.font("Ariel", FontWeight.BOLD, 55));
 		
+		//display setup
 		title.setTextFill(Color.WHITE);
 		Label empty = new Label();
 		Label empty2 = new Label();
@@ -46,6 +48,8 @@ public class Intro {
 		Label empty6 = new Label();
 		Button start = new Button("Start");
 		Button instruction = new Button("Instructions");
+		
+		//layout setup
 		introLayout.getChildren().addAll(title,empty2,empty3, empty4, empty5, empty6, start, empty, instruction);
 		start.setOnAction(e -> window.setScene(setup));
 		

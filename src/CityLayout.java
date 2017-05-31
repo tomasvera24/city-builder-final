@@ -1,3 +1,13 @@
+/*
+code key:
+0 = grass
+1 = trees
+2 = water
+3 = top right corner
+4 = top left corner
+5 = bottom right corner
+6 = bottom left corner
+*/
 
 public class CityLayout {
 	private int[][] map;
@@ -11,6 +21,8 @@ public class CityLayout {
 			}
 		}
 	}
+	
+	//map setup
 	public int[][] getMap(int x) {
 		int[][] output = new int[6][9];
 		if (x == 0) {
@@ -39,13 +51,3 @@ public class CityLayout {
 	}
 }
 
-/*
-code key:
-0 = grass
-1 = trees
-2 = water
-3 = top right corner
-4 = top left corner
-5 = bottom right corner
-6 = bottom left corner
-*/

@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 
 public class Setup {
 	
+	//instance variables
 	Scene setup;
 	Stage window;
 	String nameField;
@@ -30,6 +31,7 @@ public class Setup {
 	public Scene getScene(Scene game) {
 		VBox setupLayout = new VBox();
 		
+		//label and display setup
 		Label cityNameLabel = new Label("Enter name for city:");
 		cityNameLabel.setFont(Font.font("Ariel", FontWeight.BOLD, 40));
 		cityNameLabel.setTextFill(Color.WHITE);
@@ -42,6 +44,8 @@ public class Setup {
 			window.setScene(game);
 			city = new City(cityNameField.getText());
 		});
+		
+		//image setup
 		BackgroundImage backGround= new BackgroundImage(new Image("/Images/Landscape.jpg",1500,750,false,true),
 		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		          BackgroundSize.DEFAULT);

@@ -9,6 +9,7 @@ public class Build {
 	public static int[] display() {
 		Stage window = new Stage();
 		
+		//app view setup
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle("Build");
 		window.setMinWidth(250);
@@ -28,11 +29,14 @@ public class Build {
 		
 		Label label2 = new Label("What district would you like to build?");
 		
+		//button setup
 		Button residential = new Button("Residential");
 		Button commercial = new Button("Commercial");
 		Button industrial = new Button("Industrial");
 		Button demolish = new Button("Demolish");
 		
+		
+		//all button options
 		residential.setOnAction(e -> {
 			selection = 7;
 			window.close();

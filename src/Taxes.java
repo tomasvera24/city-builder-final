@@ -12,6 +12,8 @@ import javafx.stage.StageStyle;
 public class Taxes {
 	private static double taxRate;
 	public static double display(double tax) {
+		
+		//window setup
 		Stage window = new Stage();
 		
 		window.initModality(Modality.APPLICATION_MODAL);
@@ -20,11 +22,13 @@ public class Taxes {
 		window.initStyle(StageStyle.UTILITY);
 		window.setResizable(false);
 		
+		//defines tax rate
 		taxRate = tax;
 		Label label1 = new Label("Enter new tax rate");
 		TextField taxVal = new TextField();
 		taxVal.setPromptText("%");
 		
+		//button setup
 		Button submit = new Button("Accept");
 		Button cancel = new Button("Cancel");
 		
@@ -35,6 +39,8 @@ public class Taxes {
 		cancel.setOnAction(e -> {
 			window.close();
 		});
+		
+		//layout setup
 		HBox buttonLayout = new HBox();
 		buttonLayout.getChildren().addAll(submit,cancel);
 		

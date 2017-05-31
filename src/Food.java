@@ -10,7 +10,11 @@ import javafx.stage.StageStyle;
 
 
 public class Food {
+	
+	//defines food val
 	private static int foodVal;
+	
+	//display setup
 	public static int display() {
 		Stage window = new Stage();
 		
@@ -20,7 +24,7 @@ public class Food {
 		window.initStyle(StageStyle.UTILITY);
 		window.setResizable(false);
 		
-		
+		//options
 		Label label1 = new Label("How much food would you like to buy (Max 5): ");
 		ChoiceBox<String> foodField = new ChoiceBox<>();
 		foodField.getItems().setAll("1", "2","3","4","5");
@@ -41,7 +45,7 @@ public class Food {
 		VBox layout = new VBox();
 		layout.getChildren().addAll(label1, foodField,buttonLayout);
 		
-		
+		//scene setup
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();

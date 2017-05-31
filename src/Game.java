@@ -40,6 +40,8 @@ public class Game {
 		Button button2 = new Button("Purchase Food");
 		Button button3 = new Button("Adjust Taxes");
 		Button button4 = new Button("Next Day");
+		
+		//button actions
 		button1.setOnAction(e -> {	
 			int[] buildResult = Build.display();
 			city.setCityTile(buildResult[0], buildResult[1], buildResult[2]);
@@ -79,13 +81,13 @@ public class Game {
 		
 		
 		
-		//Stats
+		//Stats component
 		VBox stats = new VBox();
 		Label label1 = new Label(city.getName() + " Status Info:");
 		Label label3 = new Label("Population: " + city.getPopulation() + " Food: " + city.getFood() + " Money: $" + city.getMoney() );
 		Label label4 = new Label("Tax Rate: " + city.getTax() + "% Rating: " + city.getRating());
 		
-		
+		//display image
 		ImageView dateImg = new ImageView(new Image("/Images/date.jpg",40,40,false,true));
 	    Text dateText = new Text(city.getDaysElapsed());
 	    StackPane date = new StackPane();
@@ -107,6 +109,7 @@ public class Game {
 		
 		ImageView[] img = new ImageView[city.getCityLayout().length * city.getCityLayout()[0].length];
 		
+		//creates layout view through for loops
 		int k = 0;
 		for (int row = 0; row < city.getCityLayout().length; row++) {
 			for (int col = 0; col < city.getCityLayout()[0].length; col++) {
@@ -123,8 +126,6 @@ public class Game {
 		}
 		
 		//backround image
-		
-		
 		
 		cityLayout.setAlignment(Pos.CENTER);
 		

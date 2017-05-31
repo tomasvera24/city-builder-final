@@ -21,7 +21,7 @@ public class GameOver {
 		
 		
 		
-		
+		//game over information
 		VBox layout = new VBox();
 		VBox text = new VBox();
 		Label main = new Label("Game Over");

@@ -1,5 +1,6 @@
 
 public class Sort {
+	//sorting method code
 	private int[] arr;
 	
 	public Sort(int[] arr) {
